@@ -33,12 +33,12 @@ def login(req, template_name="webapp/login.html"):
 
     #req.session['important']=get_important_stats(req, filters)
 
-    return django_login(req, **{"template_name" : template_name, 'base_template': settings.BASE_TEMPLATE})
+    return django_login(req, **{"template_name" : template_name })
 
 def logout(req, template_name="webapp/loggedout.html"):
     '''Logout of rapidsms'''
     req.base_template = settings.BASE_TEMPLATE
-    return django_logout(req, **{"template_name" : template_name, 'base_template': settings.BASE_TEMPLATE})
+    return django_logout(req, **{"template_name" : template_name })
 
 def working_area(req):
     area = {}
