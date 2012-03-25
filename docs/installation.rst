@@ -5,12 +5,12 @@ Basic Environment Setup
 ------------------------
 If you're already familiar with working on python/Django projects, you'll likely be able to skip this section.  The following steps walk you through the first steps of setting up python, i.e. basic package management and development environments.  This allows you to more easily install the dependencies for RapidSMS-Rwanda, while keeping your base installation of python clean.  This assumes that you already have python installed.
 
-Install easy_install (if necessary):
+Install easy_install (if necessary)::
 
     $ wget peak.telecommunity.com/dist/ez_setup.py
     $ python ez_setup.py
 
-Install pip (if necessary):
+Install pip (if necessary):i:
 
     $ easy_install pip
 
@@ -63,11 +63,6 @@ First, edit rapidsms.ini and add the basic configuration parameters.  Yours may 
 To apps, add `patterns` (this seemed to be missing upon syncdb)::
 
     apps=webapp,ajax,admin,reporters,locations,messaging,httptester,logger,ubuzima,echo,ambulances,patterns
-
-To apps/admin/urls.py, I had to modify (this may be due to a different Django version, I used 1.1 for this install documentation)::
-
-    #    (r'^admin/(.*)', admin.site.root),
-    (r'^admin/', include(admin.site.urls)),    
 
 Create the database::
 

@@ -1,19 +1,3 @@
-Contents:
-=====================
-
-.. toctree::
-   :maxdepth: 2
-
-   installation
-   features
-
-Indices and tables
-===================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 RapidSMS Rwanda Documentation
 =======================
 
@@ -50,4 +34,20 @@ Features currently in development are:
 * Enhanced charting and mapping
 * Enhanced alerts and feedback
 * Additions for the "1000 days" project, tracking infant weight and height through 2 years of age
+
+Contents:
+=====================
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   features
+
+Indices and tables
+===================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 
