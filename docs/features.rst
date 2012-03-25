@@ -5,11 +5,11 @@ The next few sections provide a tab-by-tab (in Django-speak, view by view) break
 
 The main tabs are:
 
-* :doc:`Reporters and Groups <reporters_groups/index>`
-* :doc:`Child & Maternity Health <child_maternity_health/index>`
-* :doc:`Ambulances <ambulances/index>`
-* :doc:`Messaging <messaging/index>`
-* :doc:`Message Log <messagelog/index>`
+* :doc:`Reporters and Groups <views/reporters_groups/index>`
+* :doc:`Child & Maternity Health <views/child_maternity_health/index>`
+* :doc:`Ambulances <views/ambulances/index>`
+* :doc:`Messaging <views/messaging/index>`
+* :doc:`Message Log <views/messagelog/index>`
 
 Contents
 =====================
@@ -17,8 +17,8 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   reporters_groups/index
-   child_maternity_health/index
-   ambulances/index
-   messaging/index
-   messagelog/index
+   views/reporters_groups/index
+   views/child_maternity_health/index
+   views/ambulances/index
+   views/messaging/index
+   views/messagelog/index

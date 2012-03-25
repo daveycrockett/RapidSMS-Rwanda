@@ -1,0 +1,3 @@
+Error Log
+============
+Lorem Ibsum
