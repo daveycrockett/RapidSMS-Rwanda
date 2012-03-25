@@ -10,7 +10,7 @@ Install easy_install (if necessary)::
     $ wget peak.telecommunity.com/dist/ez_setup.py
     $ python ez_setup.py
 
-Install pip (if necessary):i:
+Install pip (if necessary)::
 
     $ easy_install pip
 

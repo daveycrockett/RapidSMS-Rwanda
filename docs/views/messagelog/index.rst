@@ -1,0 +1,3 @@
+Message Log
+=============
+Lorem ibsum

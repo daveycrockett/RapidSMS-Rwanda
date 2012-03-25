@@ -35,7 +35,7 @@ Features currently in development are:
 * Enhanced alerts and feedback
 * Additions for the "1000 days" project, tracking infant weight and height through 2 years of age
 
-Contents:
+Contents
 =====================
 
 .. toctree::
