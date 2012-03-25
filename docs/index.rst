@@ -43,6 +43,7 @@ Contents
 
    installation
    features
+   data_design
 
 Indices and tables
 ===================
