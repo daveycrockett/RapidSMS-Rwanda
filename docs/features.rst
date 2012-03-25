@@ -5,11 +5,11 @@ The next few sections provide a tab-by-tab (in Django-speak, view by view) break
 
 The main tabs are:
 
-* Reporters and Groups
-* Child & Maternity Health
-* Ambulances
-* Messaging
-* Message Log
+* :doc:`Reporters and Groups <reporters_groups/index>`
+* :doc:`Child & Maternity Health <child_maternity_health/index>`
+* :doc:`Ambulances <ambulances/index>`
+* :doc:`Messaging <messaging/index>`
+* :doc:`Message Log <messagelog/index>`
 
 Contents
 =====================
