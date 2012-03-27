@@ -1,5 +1,5 @@
 RapidSMS Rwanda Documentation
-=======================
+=================================
 
 RapidSMS is a free and open-source framework for dynamic data collection, logistics coordination and communication, leveraging basic short message service (SMS) mobile phone technology. It is written in Python and uses Django.
 
@@ -35,18 +35,14 @@ Features currently in development are:
 * Enhanced alerts and feedback
 * Additions for the "1000 days" project, tracking infant weight and height through 2 years of age
 
-Contents
-=====================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1 
 
    installation
    features
+   apps
    data_design
-
-Indices and tables
-===================
 
 * :ref:`genindex`
 * :ref:`modindex`

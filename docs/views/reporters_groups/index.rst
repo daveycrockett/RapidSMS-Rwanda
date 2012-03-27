@@ -28,9 +28,6 @@ One important thing to note to avoid confusion is that `match_inactive` is actua
 a function used by all the following views (error log, inactive and active reporters),
 it simply filters users by location, using LocationShorthand to ease the process.
 
-Contents
-=====================
-
 .. toctree::
    :maxdepth: 2
 

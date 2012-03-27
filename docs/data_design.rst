@@ -86,4 +86,28 @@ when reporters submit reports::
         created = models.DateTimeField(auto_now_add = True)
         
 This model is also used for the "Error Log" view in the `reporters` app.
- 
+
+Finally, all reports consist of the main Report object, and (potentially) any fields
+associated with it::
+
+    class Report(models.Model):
+        reporter = models.ForeignKey(Reporter)
+        location = models.ForeignKey(Location)
+        village = models.CharField(max_length=255, null=True)
+        fields = models.ManyToManyField(Field)
+        patient = models.ForeignKey(Patient)
+        type = models.ForeignKey(ReportType)    
+        # meaning of this depends on report type..
+        # arr, should really do this as a field, perhaps as a munged int?
+        date_string = models.CharField(max_length=10, null=True)
+    
+        # our real date if we have one complete with a date and time
+        date = models.DateField(null=True)
+    
+        created = models.DateTimeField(auto_now_add=True)
+        
+Because all fields are of numeric type, the Field model is fairly simple::
+
+    class Field(models.Model):
+        type = models.ForeignKey(FieldType)
+        value = models.DecimalField(max_digits=10, decimal_places=5, null=True)

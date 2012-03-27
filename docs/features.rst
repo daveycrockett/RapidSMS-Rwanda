@@ -12,10 +12,10 @@ The main tabs are:
 * :doc:`Message Log <views/messagelog/index>`
 
 Contents
-=====================
+^^^^^^^^^^^^
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1 
 
    views/reporters_groups/index
    views/child_maternity_health/index

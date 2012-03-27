@@ -30,7 +30,7 @@ SITE_ID = 1
 USE_I18N = True
 
 # Django i18n searches for translation files (django.po) within this dir
-LOCALE_PATHS=['contrib/locale']
+LOCALE_PATHS = ['contrib/locale']
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -98,8 +98,8 @@ BASE_TEMPLATE = "layout.html"
 if not "RAPIDSMS_INI" in os.environ:
     raise(
         EnvironmentError,
-        "The RAPIDSMS_INI environment variable is not "  +\
-        "defined. Without it, settings.py doesn't know " +\
+        "The RAPIDSMS_INI environment variable is not " + \
+        "defined. Without it, settings.py doesn't know " + \
         "which ini file to load settings from")
 
 # load the rapidsms configuration
@@ -120,17 +120,17 @@ def _i18n_to_django_setting(language_settings):
     languages = []
     for language in language_settings:
         if len(language) >= 2:
-            languages.append( (language[0],language[1]) )
+            languages.append((language[0], language[1]))
     return tuple(languages)
-    
+
 # Import i18n settings from rapidsms.ini for sms
 if "i18n" in RAPIDSMS_CONF:
     RAPIDSMS_I18N = True
     if "web_languages" in RAPIDSMS_CONF["i18n"]:
-        LANGUAGES = _i18n_to_django_setting( RAPIDSMS_CONF["i18n"]["web_languages"] )
+        LANGUAGES = _i18n_to_django_setting(RAPIDSMS_CONF["i18n"]["web_languages"])
     elif "languages" in RAPIDSMS_CONF["i18n"]:
-        LANGUAGES = _i18n_to_django_setting( RAPIDSMS_CONF["i18n"]["languages"] )
-    
+        LANGUAGES = _i18n_to_django_setting(RAPIDSMS_CONF["i18n"]["languages"])
+
     # allow you to specify the static paths for translation files
     if "locale_paths" in RAPIDSMS_CONF["i18n"]:
         LOCALE_PATHS = RAPIDSMS_CONF["i18n"]["locale_paths"]
@@ -153,8 +153,8 @@ else:
     # blow up. TODO: is there a way to
     # run django without a database?
     raise(
-        "Your RapidSMS configuration does not contain " +\
-        "a [database] section, which is required " +\
+        "Your RapidSMS configuration does not contain " + \
+        "a [database] section, which is required " + \
         "for the Django WebUI to function.")
 
 # if there is a "django" section, inject

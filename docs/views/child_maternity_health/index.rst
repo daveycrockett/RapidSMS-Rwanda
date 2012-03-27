@@ -42,9 +42,6 @@ I'm getting the following error when I try to access this view.  Help?::
     
     TemplateSyntaxError: Invalid template name in 'extends' tag: ''. Got this from the 'base_template' variable.
 
-Contents
-=====================
-
 .. toctree::
    :maxdepth: 2
 
