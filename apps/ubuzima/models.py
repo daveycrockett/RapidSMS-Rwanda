@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import *
-from apps.logger.models import IncomingMessage
-from apps.reporters.models import Reporter
-from apps.locations.models import Location
+from logger.models import IncomingMessage
+from reporters.models import Reporter
+from rapidsms.contrib.locations.models import Location
 from django.utils.translation import ugettext as _
 import datetime
 
@@ -18,32 +18,32 @@ def code_to_fosa(code):
 
 class FieldCategory(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    
+
     def __unicode__(self):
         return self.name
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
             ("can_view", "Can view"),
         )
- 
+
 
 class ReportType(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    
+
     def __unicode__(self):
-        return self.name 
+        return self.name
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
             ("can_view", "Can view"),
-        )  
+        )
 
 class FieldType(models.Model):
     key = models.CharField(max_length=32, unique=True)
@@ -54,48 +54,48 @@ class FieldType(models.Model):
     def __unicode__(self):
         return self.key
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
             ("can_view", "Can view"),
         )
-    
+
 class Patient(models.Model):
     location = models.ForeignKey(Location)
     national_id = models.CharField(max_length=20, unique=True)
-    
+
     def __unicode__(self):
         return "%s" % self.national_id
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
             ("can_view", "Can view"),
         )
-    
-    
+
+
 class Field(models.Model):
     type = models.ForeignKey(FieldType)
     value = models.DecimalField(max_digits=10, decimal_places=5, null=True)
-    
+
     def __unicode__(self):
         if self.value:
             return "%s=%.2f" % (_(self.type.description), self.value)
         else:
             return "%s" % _(self.type.description)
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
             ("can_view", "Can view"),
         )
-    
+
 class Report(models.Model):
     # Constants for our reminders.  Each reminder will be triggered this many days 
     # before the mother's EDD
@@ -113,26 +113,26 @@ class Report(models.Model):
     fields = models.ManyToManyField(Field)
     patient = models.ForeignKey(Patient)
     type = models.ForeignKey(ReportType)
-    
+
     # meaning of this depends on report type.. arr, should really do this as a field, perhaps as a munged int?
     date_string = models.CharField(max_length=10, null=True)
 
     # our real date if we have one complete with a date and time
     date = models.DateField(null=True)
-    
+
     created = models.DateTimeField(auto_now_add=True)
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
             ("can_view", "Can view"),
         )
-    
+
     def __unicode__(self):
         return "Report id: %d type: %s patient: %s date: %s" % (self.pk, self.type.name, self.patient.national_id, self.date_string)
-    
+
     def summary(self):
         summary = ""
         if self.date_string:
@@ -144,71 +144,71 @@ class Report(models.Model):
 
         return summary
     def has_dups(self):
-    	if len(Report.objects.filter(type=self.type,patient=self.patient,date=self.date)) > 0:	return True
+    	if len(Report.objects.filter(type=self.type, patient=self.patient, date=self.date)) > 0:	return True
     	return False
     def rep_fields(self):
-    	flds=[]
-    	rep_flds=self.fields.all()
+    	flds = []
+    	rep_flds = self.fields.all()
 	for fld in rep_flds:
     		flds.append(fld)
     	return flds
 
     def rep_fields_types(self):
-    	flds=self.rep_fields()
-	types=[]
+    	flds = self.rep_fields()
+	types = []
     	for fld in flds:
 		types.append(fld.type)
 	return types
-    		
+
 
     def rep_has_field_type(self, fldt):
-    	with_fldt=False
+    	with_fldt = False
     	if fldt in self.rep_fields_types():
-    		with_fldt=True
+    		with_fldt = True
     	return with_fldt
 
     def was_vaccinated(self):
-    	yes=False
-    	vacc=FieldCategory.objects.get(name='Vaccination')
-    	vacs=FieldType.objects.filter(category=vacc)
+    	yes = False
+    	vacc = FieldCategory.objects.get(name='Vaccination')
+    	vacs = FieldType.objects.filter(category=vacc)
     	for vac in vacs:
     		if self.rep_has_field_type(vac):
-    			yes=True
+    			yes = True
     			break
     	return yes
 
     def get_vaccine(self):
     	for x in self.fields.all():
     		for vtp in FieldType.objects.filter(category=FieldCategory.objects.get(name='Vaccination')):
-    			if x.type==vtp:
-    				return x.type 
+    			if x.type == vtp:
+    				return x.type
 
-    def was_vaccinated_with(self,vac):
+    def was_vaccinated_with(self, vac):
     	if self.get_vaccine() == vac:
     		return True
     	return False
 
-    
+
     def is_home(self):
-    	yes=False
-    	ftp=FieldType.objects.get(key='ho')
+    	yes = False
+    	ftp = FieldType.objects.get(key='ho')
     	if self.rep_has_field_type(ftp):
-    		yes=True
+    		yes = True
     	return yes
 
     def is_hosp(self):
-    	yes=False
-    	ftp1=FieldType.objects.get(key='hp')
-    	ftp2=FieldType.objects.get(key='cl')
+    	yes = False
+    	ftp1 = FieldType.objects.get(key='hp')
+    	ftp2 = FieldType.objects.get(key='cl')
     	if self.rep_has_field_type(ftp1) or self.rep_has_field_type(ftp2):
-    		yes=True
+    		yes = True
     	return yes
 
     def is_route(self):
-    	yes=False
-    	ftp=FieldType.objects.get(key='or')
+    	yes = False
+    	ftp = FieldType.objects.get(key='or')
     	if self.rep_has_field_type(ftp):
-    		yes=True
+    		yes = True
     	return yes
 
     def is_maternal_death(self):
@@ -226,13 +226,13 @@ class Report(models.Model):
     	return False
 
     def has_no_toilet(self):
-    	ftp=FieldType.objects.get(key='nt')
+    	ftp = FieldType.objects.get(key='nt')
     	if self.rep_has_field_type(ftp):
     		return True
     	return False
 
     def has_no_hw(self):
-    	ftp=FieldType.objects.get(key='nh')
+    	ftp = FieldType.objects.get(key='nh')
     	if self.rep_has_field_type(ftp):
     		return True
     	return False
@@ -258,7 +258,7 @@ class Report(models.Model):
         # try to parse the date.. dd/mm/yyyy
         try:
             self.date = datetime.datetime.strptime(date_string, "%d.%m.%Y").date()
-        except ValueError,e:
+        except ValueError, e:
             # no-op, just keep the date_string value
             pass
 
@@ -288,13 +288,13 @@ class Report(models.Model):
                 reports[report.patient.national_id] = report
 
         return reports.values()
-    
+
     @classmethod
     def calculate_edd(cls, last_menses):
         """
         Given the date of the last menses, figures out the expected delivery date
         """
-            
+
         # first add seven days
         edd = last_menses + datetime.timedelta(7)
 
@@ -304,10 +304,10 @@ class Report(models.Model):
         #	    edd = edd.replace(year=edd.year+1, month=edd.month+9-12)
         #	else:
         #	    edd = edd.replace(month=edd.month+9)
-        
+
         #	return edd
 
-        neufmois = datetime.timedelta(days = 270)
+        neufmois = datetime.timedelta(days=270)
         return edd + neufmois
 
     @classmethod
@@ -325,9 +325,9 @@ class Report(models.Model):
 
         # now subtract 7 days
         #   last_menses = last_menses - datetime.timedelta(7)
-        
+
         #   return last_menses
-        return edd - datetime.timedelta(days = 277)
+        return edd - datetime.timedelta(days=277)
 
     @classmethod
     def calculate_reminder_range(cls, date, days):
@@ -346,32 +346,32 @@ class Report(models.Model):
         # bracket in either direction
         start = last_menses - datetime.timedelta(2)
         end = last_menses + datetime.timedelta(2)
-    
+
         return (start, end)
 
     def is_risky(self):
-        risk = FieldType.objects.filter(key__in =['ps','ds','sl','pc','af','ja','cm','mc','ns','fp','oe','un','ch','sa','co','vo','he','pa','rb','hy','fe','ma','di','ci','sc'])
-        preg   = [ReportType.objects.get(name = 'Pregnancy'),ReportType.objects.get(name = 'RISK'),ReportType.objects.get(name = 'ANC')]
-        all_risks=[]
+        risk = FieldType.objects.filter(key__in=['ps', 'ds', 'sl', 'pc', 'af', 'ja', 'cm', 'mc', 'ns', 'fp', 'oe', 'un', 'ch', 'sa', 'co', 'vo', 'he', 'pa', 'rb', 'hy', 'fe', 'ma', 'di', 'ci', 'sc'])
+        preg = [ReportType.objects.get(name='Pregnancy'), ReportType.objects.get(name='RISK'), ReportType.objects.get(name='ANC')]
+        all_risks = []
         #for me in Report.objects.filter(patient = self.patient, type__in = preg):
-	for r in self.fields.all(): 
+	for r in self.fields.all():
 		if r.type in risk: return True#all_risks.append(r.type)		
     	#if len(all_risks)!=0: return True
         return False
 
     def is_high_risky_preg(self):
-    	risk = FieldType.objects.filter(key__in =['ps','ds','sl','ja','fp','un','sa','co','he','pa','ma','sc'])
-    	preg   = [ReportType.objects.get(name = 'Pregnancy'),ReportType.objects.get(name = 'RISK'),ReportType.objects.get(name = 'ANC')]
-        all_risks=[]
-        for me in Report.objects.filter(patient = self.patient, type__in = preg):
-            for r in me.fields.all(): 
+    	risk = FieldType.objects.filter(key__in=['ps', 'ds', 'sl', 'ja', 'fp', 'un', 'sa', 'co', 'he', 'pa', 'ma', 'sc'])
+    	preg = [ReportType.objects.get(name='Pregnancy'), ReportType.objects.get(name='RISK'), ReportType.objects.get(name='ANC')]
+        all_risks = []
+        for me in Report.objects.filter(patient=self.patient, type__in=preg):
+            for r in me.fields.all():
     	    	if r.type in risk: all_risks.append(r.type)
-    	if len(all_risks)!=0: return True
+    	if len(all_risks) != 0: return True
         return False
 
     def show_edd(self):
     	return self.calculate_edd(self.date)
-    	    
+
 class TriggeredText(models.Model):
     """ Represents an automated text response that is returned to the CHW, SUP or district SUP based 
         on a set of matching action codes. """
@@ -381,17 +381,17 @@ class TriggeredText(models.Model):
     DESTINATION_DIS = 'DIS'
     DESTINATION_AMB = 'AMB'
 
-    DESTINATION_CHOICES = ( (DESTINATION_CHW, "Community Health Worker"),
+    DESTINATION_CHOICES = ((DESTINATION_CHW, "Community Health Worker"),
                             (DESTINATION_SUP, "Clinic Supervisor"),
                             (DESTINATION_DIS, "District Supervisor"),
                             (DESTINATION_AMB, "Ambulance"))
-    
+
     name = models.CharField(max_length=128)
     destination = models.CharField(max_length=3, choices=DESTINATION_CHOICES,
                                    help_text="Where this text will be sent to when reports match all triggers.")
 
     description = models.TextField()
-    
+
     message_kw = models.CharField(max_length=160)
     message_fr = models.CharField(max_length=160)
     message_en = models.CharField(max_length=160)
@@ -401,7 +401,7 @@ class TriggeredText(models.Model):
 
     active = models.BooleanField(default=True)
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -412,10 +412,10 @@ class TriggeredText(models.Model):
 
     def trigger_summary(self):
         return ", ".join(map(lambda t: t.description, self.triggers.all()))
-    
+
     def recipients(self):
         return ", ".join(map(lambda a: a.recipient, self.actions.all()))
-    
+
     def __unicode__(self):
         return self.name
 
@@ -428,17 +428,17 @@ class TriggeredText(models.Model):
         types = []
         for field in report.fields.all():
             types.append(field.type.pk)
-               
+
         # these are the texts which may get activated
         texts = TriggeredText.objects.filter(triggers__in=types).distinct().order_by('id')
 
         # triggers that should be sent back, one per destination
         matching_texts = []
-            
+
         # for each trigger text, see whether we should be triggered by it
         for text in texts:
             matching = True
-            
+
             for trigger in text.triggers.all():
                 found = False
 
@@ -446,11 +446,11 @@ class TriggeredText(models.Model):
                     if trigger.pk == field.type.pk:
                         found = True
                         break
-                    
+
                 # not found?  this won't trigger
                 if not found:
                     matching = False
-            
+
             if matching:
                 matching_texts.append(text)
 
@@ -464,7 +464,7 @@ class TriggeredText(models.Model):
         for tt in matching_texts:
             if not tt.destination in per_destination:
                 per_destination[tt.destination] = tt
-                
+
         # return our trigger texts
         matching_list = per_destination.values()
         matching_list.sort(key=lambda tt: tt.pk)
@@ -484,7 +484,7 @@ class ReminderType(models.Model):
     def __unicode__(self):
         return self.name
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -503,7 +503,7 @@ class Reminder(models.Model):
     date = models.DateTimeField()
 
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -512,7 +512,7 @@ class Reminder(models.Model):
         )
 
     def __unicode__(self):
-			return "Reminder Type:%s   Sent:(%s)   Patient:%s   Location:%s   Reporter:%s" % (self.type, self.date,self.report.patient if self.report else None,self.reporter.location, self.reporter.connection().identity)
+			return "Reminder Type:%s   Sent:(%s)   Patient:%s   Location:%s   Reporter:%s" % (self.type, self.date, self.report.patient if self.report else None, self.reporter.location, self.reporter.connection().identity)
 
     @classmethod
     def get_expired_reporters(cls, today):
@@ -525,8 +525,8 @@ class Reminder(models.Model):
 
         reporters = set()
 
-        for reporter in Reporter.objects.filter(connections__last_seen__gt = expired_start,
-                                                connections__last_seen__lt = expired_end):
+        for reporter in Reporter.objects.filter(connections__last_seen__gt=expired_start,
+                                                connections__last_seen__lt=expired_end):
             # get our most recent reminder
             reminders = Reminder.objects.filter(reporter=reporter, type=expired_type).order_by('-date')
 
@@ -543,16 +543,16 @@ class Reminder(models.Model):
         return reporters
 
 class HealthTarget(models.Model):
-    name        = models.TextField()
+    name = models.TextField()
     description = models.TextField()
-    positive    = models.BooleanField()
-    target      = models.IntegerField()
-    
+    positive = models.BooleanField()
+    target = models.IntegerField()
+
     def __unicode__(self):
         return self.description
 
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -563,9 +563,9 @@ class HealthTarget(models.Model):
 class LocationShorthand(models.Model):
     'Memoization of locations, so that they are more-efficient in look-up.'
 
-    original = models.ForeignKey(Location, related_name = 'locationslocation')
-    district = models.ForeignKey(Location, related_name = 'district')
-    province = models.ForeignKey(Location, related_name = 'province')
+    original = models.ForeignKey(Location, related_name='locationslocation')
+    district = models.ForeignKey(Location, related_name='district')
+    province = models.ForeignKey(Location, related_name='province')
 
     def __unicode__(self):
         return str(self.original)
@@ -574,7 +574,7 @@ class LocationShorthand(models.Model):
         return self.id
 
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -585,14 +585,14 @@ class LocationShorthand(models.Model):
 class Refusal(models.Model):
     'This represents refusals to give a health agent information. We keep instead a reference to the reporter, in order to follow up, if necessary.'
 
-    reporter = models.ForeignKey(Reporter, related_name = 'jilted_reporter')
-    refid    = models.TextField()
+    reporter = models.ForeignKey(Reporter, related_name='jilted_reporter')
+    refid = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.reporter.connection().identity
 
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -603,9 +603,9 @@ class Refusal(models.Model):
 class ErrorNote(models.Model):
     '''This model is used to record errors made by people sending messages into the system, to facilitate things like studying which format structures are error-prone, and which reporters make the most errors, and other things like that.'''
 
-    errmsg  = models.TextField()
-    errby   = models.ForeignKey(Reporter, related_name = 'erring_reporter')
-    created = models.DateTimeField(auto_now_add = True)
+    errmsg = models.TextField()
+    errby = models.ForeignKey(Reporter, related_name='erring_reporter')
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return '%s (%s): "%s"' % (str(self.errby.connection().identity), str(self.created), str(self.errmsg))
@@ -613,7 +613,7 @@ class ErrorNote(models.Model):
     def __int__(self):
         return self.id
     class Meta:
-        
+
         # define a permission for this app to use the @permission_required
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
@@ -623,15 +623,15 @@ class ErrorNote(models.Model):
 
 class UserLocation(models.Model):
 	"""This model is used to help the system to know where the user who is trying to access this information is from"""
-	user=models.ForeignKey(User)
-	location=models.ForeignKey(Location)
+	user = models.ForeignKey(User)
+	location = models.ForeignKey(Location)
 	def __unicode__(self):
 		return '%s : "%s"' % (str(self.user), str(self.location))
 
 	def __int__(self):
 		return self.id
 	class Meta:
-        
+
 		# define a permission for this app to use the @permission_required
 		# in the admin's auth section, we have a group called 'manager' whose
 		# users have this permission -- and are able to see this section
@@ -644,7 +644,7 @@ class TriggeredAlert(models.Model):
                         Logs alerts that have been sent. """
     reporter = models.ForeignKey(Reporter)
     report = models.ForeignKey(Report, related_name="alerts", null=True)
-    trigger=models.ForeignKey(TriggeredText)
+    trigger = models.ForeignKey(TriggeredText)
     date = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
 		return '%s : "%s"' % (str(self.id), str(self.trigger))
@@ -652,7 +652,7 @@ class TriggeredAlert(models.Model):
     def __int__(self):
     	return self.id
     class Meta:
-        
+
 		# define a permission for this app to use the @permission_required
 		# in the admin's auth section, we have a group called 'manager' whose
 		# users have this permission -- and are able to see this section

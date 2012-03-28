@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 
-from rapidsms.webui.utils import *
+from webui.utils import *
 from reporters.models import *
 from reporters.utils import *
 from ubuzima.models import *
@@ -28,34 +28,34 @@ def index(req):
 def by_patient(req, pk):
     patient = get_object_or_404(Patient, pk=pk)
     reports = Report.objects.filter(patient=patient).order_by("-created")
-    
+
     return render_to_response(req,
                               "ubuzima/patient.html", { "patient":    patient,
                                                         "reports":    paginated(req, reports, prefix="rep") })
-    
+
 @require_http_methods(["GET"])
 def by_type(req, pk):
     report_type = get_object_or_404(ReportType, pk=pk)
     reports = Report.objects.filter(type=report_type).order_by("-created")
-    
+
     return render_to_response(req,
                               "ubuzima/type.html", { "type":    report_type,
                                                      "reports":    paginated(req, reports, prefix="rep") })
-    
+
 
 @require_http_methods(["GET"])
 def view_report(req, pk):
     report = get_object_or_404(Report, pk=pk)
-    
+
     return render_to_response(req,
                               "ubuzima/report.html", { "report":    report })
-    
-    
+
+
 @require_http_methods(["GET"])
 def by_reporter(req, pk):
     reporter = Reporter.objects.get(pk=pk)
     reports = Report.objects.filter(reporter=reporter).order_by("-created")
-    
+
     return render_to_response(req,
                               "ubuzima/reporter.html", { "reports":    paginated(req, reports, prefix="rep"),
                                                          "reporter":   reporter })
@@ -63,23 +63,23 @@ def by_reporter(req, pk):
 def by_location(req, pk):
     location = get_object_or_404(Location, pk=pk)
     reports = Report.objects.filter(location=location).order_by("-created")
-    
+
     return render_to_response(req,
                               "ubuzima/location.html", { "location":   location,
                                                          "reports":   paginated(req, reports, prefix="rep") })
 @require_http_methods(["GET"])
 def advices(req):
     advices = AdviceText.objects.all()
-    
+
     return render_to_response(req,
-                              'ubuzima/advices.html', { 'advices': paginated(req, advices, prefix='ad') } )
-    
- 
+                              'ubuzima/advices.html', { 'advices': paginated(req, advices, prefix='ad') })
+
+
 @require_http_methods(["GET"])
 def advice(req, pk):
     advice = AdviceText.objects.get(pk=pk)
-    
+
     return render_to_response(req,
                               'ubuzima/advice.html', { 'advice': advice })
-        
-    
+
+

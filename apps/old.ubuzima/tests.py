@@ -1,11 +1,11 @@
 from rapidsms.tests.scripted import TestScript
 from app import App
-from apps.reporters.app import App as ReporterApp
+from reporters.app import App as ReporterApp
 
 class TestApp (TestScript):
     apps = (App, ReporterApp)
 
-    fixtures = ("fosa_location_types", "fosa_test_locations", "groups", "reporting" )
+    fixtures = ("fosa_location_types", "fosa_test_locations", "groups", "reporting")
 
     testRegister = """
         2 > reg 1234567890123456 05
@@ -47,7 +47,7 @@ class TestApp (TestScript):
         5 < You are a CHW, located at Biryogo (foo), you speak English
 
     """
-    
+
     testSupervisor = """
         1 > sup 1234567890123456 05094 en    
         1 < Thank you for registering at Gashora 
@@ -61,7 +61,7 @@ class TestApp (TestScript):
         3 > SUP 1234567890123452 048547 fr
         3 < Iyi nimero y'ibitaro ntizwi: 048547
     """
-    
+
     testCC = """
         101 > reg 2234567890123456 05094 en
         101 < Thank you for registering at Gashora
@@ -77,7 +77,7 @@ class TestApp (TestScript):
         102 < 101: bir 101 01 bo
         103 < 101: bir 101 01 bo
     """
-    
+
     testPregnancy = """
         1 > pre 4234567890123456 1982
         1 < Ugomba kubanza kwiyandikisha, koresha ijambo REG
@@ -115,8 +115,8 @@ class TestApp (TestScript):
         1 < The correct format message is: PRE MOTHER_ID LAST_MENSES ACTION_CODE LOCATION_CODE MOTHER_WEIGHT
                 
        
-    """	
-    
+    """
+
     testRisk = """
         1 > risk 10003 ho
         1 < Ugomba kubanza kwiyandikisha, koresha ijambo REG
@@ -157,8 +157,8 @@ class TestApp (TestScript):
         
 
        
-    """	
-    
+    """
+
     testBirth = """
 
         1 > REG 4234567890123456 05094 en
@@ -180,8 +180,8 @@ class TestApp (TestScript):
         1 > last
         1 < type: Birth patient: 123459 Date: 10.04.2010 fields: ma, ho, child_weight=3.20, muac=5.43, child_number=3.00
        
-    """    
-    
+    """
+
     testChildHealth = """
 
         1 > REG 4234567890123456 05094 en
@@ -209,7 +209,7 @@ class TestApp (TestScript):
         1 > last
         1 < type: Child Health patient: 12345 fields: ho, child_weight=3.30, child_number=4.00
        
-    """    
+    """
 
     # define your test scripts here.
     # e.g.:

@@ -1,16 +1,16 @@
 from rapidsms.tests.scripted import TestScript
 from app import App
-from apps.reporters.app import App as ReporterApp
+from reporters.app import App as ReporterApp
 from django.test import TestCase
 
 import datetime
 
-from apps.reporters.models import Reporter, PersistantBackend, PersistantConnection
-from apps.locations.models import Location
+from reporters.models import Reporter, PersistantBackend, PersistantConnection
+from locations.models import Location
 from ubuzima.models import Patient, Report, ReportType, Reminder, ReminderType, TriggeredText, FieldType
 
 class TestUbuzima(TestCase):
-    fixtures = ("fosa_location_types", "fosa_test_locations", "groups", "reporting", "reminder_types" )
+    fixtures = ("fosa_location_types", "fosa_test_locations", "groups", "reporting", "reminder_types")
 
     def testCalculateEDD(self):
         # simple case first
@@ -157,7 +157,7 @@ class TestUbuzima(TestCase):
     def testTriggeredTexts(self):
         # create a reporter
         reporter = Reporter.objects.create(alias='santa')
-        
+
         # test location
         location = Location.objects.get(code="F01001")
 
@@ -166,7 +166,7 @@ class TestUbuzima(TestCase):
 
         # pregnancy report type
         pregnancy_type = ReportType.objects.get(pk=4)
-        
+
         # and a test report (birth for example)
         report = Report.objects.create(reporter=reporter, location=location, patient=patient, type=pregnancy_type)
 
@@ -175,7 +175,7 @@ class TestUbuzima(TestCase):
         self.assertEquals(0, len(triggers))
 
         he_type = FieldType.objects.get(key='he')
-        
+
         # ok add a trigger now, for he
         he_trigger = TriggeredText.objects.create(name="HE Advice", description="Desc",
                                                   message_kw="foo", message_fr="le foo", message_en="yo foo",
@@ -238,7 +238,7 @@ class TestUbuzima(TestCase):
 
 class TestTriggers (TestScript):
     apps = (App, ReporterApp)
-    fixtures = ("fosa_location_types", "fosa_test_locations", "groups", "reporting", "test_triggers" )
+    fixtures = ("fosa_location_types", "fosa_test_locations", "groups", "reporting", "test_triggers")
 
     testTriggers = """
        1 > REG 4234567890123456 05094 en
@@ -299,7 +299,7 @@ class TestApp (TestScript):
         5 < You are a CHW, located at Biryogo (foo), you speak English
 
     """
-    
+
     testSupervisor = """
         1 > sup 1234567890123456 05094 en    
         1 < Thank you for registering at Gashora 
@@ -313,7 +313,7 @@ class TestApp (TestScript):
         3 > SUP 1234567890123452 048547 fr
         3 < Iyi nimero y'ibitaro ntizwi: 048547
     """
-    
+
     testCC = """
         101 > reg 2234567890123456 05094 en
         101 < Thank you for registering at Gashora
@@ -329,7 +329,7 @@ class TestApp (TestScript):
         102 < 101: Birth Report: Patient=101, Location=Gashora, Male, Child Number=1.00
         103 < 101: Birth Report: Patient=101, Location=Gashora, Male, Child Number=1.00
     """
-    
+
     testPregnancy = """
         1 > pre 4234567890123456 1982
         1 < Ugomba kubanza kwiyandikisha, koresha ijambo REG
@@ -365,8 +365,8 @@ class TestApp (TestScript):
         1 < Error.  Unknown action code: 21.
         1 > pre
         1 < The correct format message is: PRE MOTHER_ID LAST_MENSES ACTION_CODE LOCATION_CODE MOTHER_WEIGHT
-    """	
-    
+    """
+
     testRisk = """
         1 > risk 10003 ho
         1 < Ugomba kubanza kwiyandikisha, koresha ijambo REG
@@ -403,8 +403,8 @@ class TestApp (TestScript):
 
         4 > risk 10004 ho
         4 < Ugomba kubanza kwiyandikisha, koresha ijambo REG
-    """	
-    
+    """
+
     testBirth = """
 
         1 > REG 4234567890123456 05094 en
@@ -425,8 +425,8 @@ class TestApp (TestScript):
         1 < Thank you! Birth report submitted successfully.
         1 > last
         1 < Birth Report: Patient=123459, Location=Gashora, Date=10.04.2010, At home, Malaria, MUAC=5.43, Child weight=3.20, Child Number=3.00
-    """    
-    
+    """
+
     testChildHealth = """
 
         1 > REG 4234567890123456 05094 en
@@ -453,7 +453,7 @@ class TestApp (TestScript):
         1 < Thank you! Child health report submitted successfully.
         1 > last
         1 < Child Health Report: Patient=12345, Location=Gashora, At home, Child weight=3.30, Child Number=4.00
-    """    
+    """
 
     # define your test scripts here.
     # e.g.:

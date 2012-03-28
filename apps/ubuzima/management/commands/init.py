@@ -4,7 +4,7 @@
 
 import os, csv, decimal
 from django.core.management.base import NoArgsCommand
-from locations.models import * #we are importing model classes from locations app
+from rapidsms.contrib.locations.models import * #we are importing model classes from locations app
 from ubuzima.models import *
 from django.core import management
 
@@ -12,7 +12,7 @@ from django.core import management
 IMPORT_DIR = os.path.abspath("apps/ubuzima/import")
 
 #the indexes in fosa_table.csv
-PROVINCE_NAME = 5 
+PROVINCE_NAME = 5
 PROVINCE_CODE = 4
 NAME = 2
 CODE = 0
@@ -23,14 +23,14 @@ PARENT = 17
 
 # indexes in fosa_villages.csv
 VILLAGE_NAME = 1
-VILLAGE_CODE =  0
+VILLAGE_CODE = 0
 VILLAGE_DISTRICT_CODE = 6
 VILLAGE_SECTOR_CODE = 7
 
 #indexes for District.csv
 DISTRICT_NAME = 2
 DISTRICT_CODE = 1
-DISTRICT_PROVINCE_CODE =  3
+DISTRICT_PROVINCE_CODE = 3
 
 #indexes for Sector.csv
 SECTOR_CODE = 1
@@ -38,44 +38,44 @@ SECTOR_NAME = 2
 SECTOR_DISTRICT_CODE = 5
 
 class Command(NoArgsCommand):
-    
-    
+
+
     def _csv(self, filename):
         """Returns a CSV reader for _filename_
            relative to the sources directory."""
         path = os.path.join(IMPORT_DIR, filename)
         return csv.reader(open(path, "rU"))
-    
-    
+
+
     def _hospital_name(self, original):
         return original.capitalize()
-    
-    
+
+
     def _loc_type (self, name):
         return LocationType.objects.get(name__iexact=name)
-    
-    
+
+
     def __init__(self):
         self.provinces = {}
         self.districts = {}
         self.sectors = {}
         self.hospitals = {}
         self.healthcentres = {}
-    
+
     def handle_noargs(self, **options):
         #delete all locations before insertion, 
         #we might change this during production
         Location.objects.all().delete()
-        
+
         #load location_types fixture
         management.call_command('loaddata', 'fosa_location_types.json')
-        
+
         # init our reporter groups
         management.call_command('loaddata', 'groups.json')
-        
+
         # init our reporting objects
         management.call_command('loaddata', 'reporting.json')
-        
+
         rows = list(self._csv("fosa_table.csv"))
 
         rows = rows[1:]
@@ -98,12 +98,12 @@ class Command(NoArgsCommand):
             # linked to the province named on this row
             district, d_created = \
                     self._loc_type("district").locations.get_or_create(
-                        parent = self.provinces[row[DISTRICT_PROVINCE_CODE]],
+                        parent=self.provinces[row[DISTRICT_PROVINCE_CODE]],
                         #parent = province,
                         name=row[DISTRICT_NAME].capitalize(),
                         code=row[DISTRICT_CODE]
                         )
-            
+
             if d_created:
                     print ". Created District: %s" % (district)
                     self.districts[district.code] = district
@@ -111,12 +111,12 @@ class Command(NoArgsCommand):
 
         sector_rows = list(self._csv("Sector.csv"))
 
-        sector_rows = sector_rows[1:] 
-        for row in sector_rows:  
+        sector_rows = sector_rows[1:]
+        for row in sector_rows:
             # making sure the sector exist linked to the district
             sector, s_created = \
                     self._loc_type("sector").locations.get_or_create(
-                    parent = self.districts[row[SECTOR_DISTRICT_CODE]],
+                    parent=self.districts[row[SECTOR_DISTRICT_CODE]],
                     #parent = district,
                     name=row[SECTOR_NAME].capitalize(),
                     code=row[SECTOR_CODE]
@@ -124,8 +124,8 @@ class Command(NoArgsCommand):
             if s_created:
                     print ". Created Sector: %s (%s)" % (sector, sector.code)
                     self.sectors[sector.code] = sector
-                
-        
+
+
         # second iteration: create all of the hospitals. we must do
         # this before the health centres, since many health centres
         # link (by name) to the hospitals before they are listed
@@ -135,7 +135,7 @@ class Command(NoArgsCommand):
                     # wooo geo co-ords!
                     lat = decimal.Decimal(row[LATITUDE])
                     lon = decimal.Decimal(row[LONGITUDE])
-                
+
                 # django doesn't accept invalid decimals, so
                 # leave both fields null if they can't be cast
                 except decimal.InvalidOperation:
@@ -144,7 +144,7 @@ class Command(NoArgsCommand):
                 hospital, created = \
                     self._loc_type("hospital").locations.get_or_create(
                         #parent=self.sectors[row[SECTOR_CODE]],
-                        parent = sector,
+                        parent=sector,
                         name=self._hospital_name(row[NAME]),
                         code=fosa_to_code(row[CODE]),
                         latitude=lat,
@@ -152,7 +152,7 @@ class Command(NoArgsCommand):
                         )
 
                 if created:
-                    print ". Created Hospital: %s" %\
+                    print ". Created Hospital: %s" % \
                         (hospital)
                     self.hospitals[hospital.name] = hospital
 
@@ -175,7 +175,7 @@ class Command(NoArgsCommand):
                     # wooo geo co-ords!
                     lat = decimal.Decimal(row[LATITUDE])
                     lon = decimal.Decimal(row[LONGITUDE])
-                
+
                 # django doesn't accept invalid decimals, so
                 # leave both fields null if they can't be cast
                 except decimal.InvalidOperation:
@@ -200,14 +200,14 @@ class Command(NoArgsCommand):
                         longitude=lon)
 
                 if created:
-                    print ". Created Health Centre: %s" %\
+                    print ". Created Health Centre: %s" % \
                         (healthcentre)
-                        
-            
-                
+
+
+
         village_rows = list(self._csv("fosa_villages.csv"))
-        
-        
+
+
         village_rows = village_rows[1:]
         for row in village_rows:
             sectorCode = "0" + row[VILLAGE_SECTOR_CODE]
@@ -216,15 +216,15 @@ class Command(NoArgsCommand):
             else:
                 print "Unable to find parent for village: %s (sector: %s)" % (row[VILLAGE_CODE], sectorCode)
                 continue
-            
-            village, v_created= \
+
+            village, v_created = \
             self._loc_type("village").locations.get_or_create(
                 parent=parent,
                 name=row[VILLAGE_NAME].capitalize(),
                 code=row[VILLAGE_CODE]
             )
-            
+
             if v_created:
-                print ". Created Village: %s" %  (village)
-                
-                
+                print ". Created Village: %s" % (village)
+
+
