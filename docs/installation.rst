@@ -39,6 +39,11 @@ First, clone the project directly::
 
     $ git clone git://github.com/pivotaccess2007/RapidSMS-Rwanda
 
+Initialize the rapidsms submodule (this makes pulling updates to the rapidsms core easy)::
+
+    $ git submodule init
+    $ git submodule update
+
 You can then install the dependencies::
 
     $ pip install -r pip-requires.txt
