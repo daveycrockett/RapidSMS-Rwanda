@@ -121,7 +121,7 @@ class Reporter(models.Model):
         # in the admin's auth section, we have a group called 'manager' whose
         # users have this permission -- and are able to see this section
         permissions = (
-            ("can_view", "Can view reporter"),("add_reporter", "Can add reporter"),("change_reporter", "Can edit reporter"),("delete_reporter", "Can delete reporter")
+            ("can_view", "Can view reporter"),
         )
     
     
