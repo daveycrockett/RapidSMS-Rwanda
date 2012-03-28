@@ -72,4 +72,6 @@ Syncdb::
 
     $ python manage.py syncdb
 
+Load in essential fixtures::
 
+    $ python manage.py loaddata fosa_location_types groups reminder_types reporting
