@@ -1,562 +1,576 @@
 [
-
     {
-        "pk": 1,
-        "model": "ubuzima.reporttype",
+        "pk": 1, 
+        "model": "ubuzima.reporttype", 
         "fields": {
             "name": "Birth"
-         }
-    },
+        }
+    }, 
     {
-        "pk": 2,
-        "model": "ubuzima.reporttype",
+        "pk": 2, 
+        "model": "ubuzima.reporttype", 
         "fields": {
             "name": "Death"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "ubuzima.reporttype",
+        "pk": 3, 
+        "model": "ubuzima.reporttype", 
         "fields": {
             "name": "Risk"
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "ubuzima.reporttype",
+        "pk": 4, 
+        "model": "ubuzima.reporttype", 
         "fields": {
             "name": "Pregnancy"
         }
-    },
-
+    }, 
     {
-        "pk": 5,
-        "model": "ubuzima.reporttype",
+        "pk": 5, 
+        "model": "ubuzima.reporttype", 
         "fields": {
             "name": "Child Health"
         }
-    },
-
+    }, 
     {
-        "pk": 1,
-        "model": "ubuzima.fieldcategory",
+        "pk": 6, 
+        "model": "ubuzima.reporttype", 
+        "fields": {
+            "name": "ANC"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "ubuzima.fieldcategory", 
         "fields": {
             "name": "Birth"
-         }
-    },
+        }
+    }, 
     {
-        "pk": 2,
-        "model": "ubuzima.fieldcategory",
+        "pk": 2, 
+        "model": "ubuzima.fieldcategory", 
         "fields": {
             "name": "Death"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "ubuzima.fieldcategory",
+        "pk": 3, 
+        "model": "ubuzima.fieldcategory", 
         "fields": {
             "name": "Risk"
         }
-    },
-
+    }, 
     {
-        "pk": 4,
-        "model": "ubuzima.fieldcategory",
+        "pk": 4, 
+        "model": "ubuzima.fieldcategory", 
         "fields": {
             "name": "Movement"
-       }
-    },
+        }
+    }, 
     {
-        "pk": 5,
-        "model": "ubuzima.fieldcategory",
+        "pk": 5, 
+        "model": "ubuzima.fieldcategory", 
         "fields": {
             "name": "Metric"
-       }
-    },
+        }
+    }, 
     {
-        "pk": 6,
-        "model": "ubuzima.fieldcategory",
+        "pk": 6, 
+        "model": "ubuzima.fieldcategory", 
         "fields": {
             "name": "Vaccination"
-       }
-    },
+        }
+    }, 
     {
-        "pk": 1,
-        "model": "ubuzima.fieldtype",
+        "pk": 1, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "md",
-	    "description": "Maternal Death",
-            "category": "2"
-       }
-    },
-    
+            "category": 2, 
+            "description": "Maternal Death", 
+            "key": "md", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 2,
-        "model": "ubuzima.fieldtype",
+        "pk": 2, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "mc",
-	    "description": "Miscarriage",
-            "category": "2"
-       }
-    },
+            "category": 2, 
+            "description": "Miscarriage", 
+            "key": "mc", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 3,
-        "model": "ubuzima.fieldtype",
+        "pk": 3, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "cd",
-	    "description": "Child Death",
-            "category": "2"
-       }
-    },
+            "category": 2, 
+            "description": "Child Death", 
+            "key": "cd", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 4,
-        "model": "ubuzima.fieldtype",
+        "pk": 4, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "te",
-	    "description": "Mother at term",
-            "category": "1"
-       }
-    },
+            "category": 1, 
+            "description": "Mother at term", 
+            "key": "te", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 5,
-        "model": "ubuzima.fieldtype",
+        "pk": 5, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "la",
-	    "description": "Mother in labor",
-            "category": "1"
-       }
-    },
+            "category": 1, 
+            "description": "Mother in labor", 
+            "key": "la", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 6,
-        "model": "ubuzima.fieldtype",
+        "pk": 6, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "na",
-	    "description": "Has never received clinical antenatal care",
-            "category": "1"
-       }
-    },
+            "category": 1, 
+            "description": "Has never received clinical antenatal care", 
+            "key": "na", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 7,
-        "model": "ubuzima.fieldtype",
+        "pk": 7, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "tw",
-	    "description": "Twins",
-            "category": "1"
-       }
-    },
+            "category": 1, 
+            "description": "Twins", 
+            "key": "tw", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 8,
-        "model": "ubuzima.fieldtype",
+        "pk": 8, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "tr",
-	    "description": "Triplets",
-            "category": "1"
-       }
-    },
+            "category": 1, 
+            "description": "Triplets", 
+            "key": "tr", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 9,
-        "model": "ubuzima.fieldtype",
+        "pk": 9, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "bo",
-	    "description": "Male",
-            "category": "1"
-       }
-    },
+            "category": 1, 
+            "description": "Male", 
+            "key": "bo", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 10,
-        "model": "ubuzima.fieldtype",
+        "pk": 10, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "gi",
-	    "description": "Female",
-            "category": "1"
-       }
-    },
-    
+            "category": 1, 
+            "description": "Female", 
+            "key": "gi", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 11,
-        "model": "ubuzima.fieldtype",
+        "pk": 11, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "sc",
-	    "description": "Perceived serious but cause unknown",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Perceived serious but cause unknown", 
+            "key": "sc", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 12,
-        "model": "ubuzima.fieldtype",
+        "pk": 12, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ci",
-	    "description": "Cord infection",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Cord infection", 
+            "key": "ci", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 13,
-        "model": "ubuzima.fieldtype",
+        "pk": 13, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "di",
-	    "description": "Diarrhea",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Diarrhea", 
+            "key": "di", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 14,
-        "model": "ubuzima.fieldtype",
+        "pk": 14, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ma",
-	    "description": "Malaria",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Malaria", 
+            "key": "ma", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 15,
-        "model": "ubuzima.fieldtype",
+        "pk": 15, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "fe",
-	    "description": "Fever",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Fever", 
+            "key": "fe", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 16,
-        "model": "ubuzima.fieldtype",
+        "pk": 16, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "hy",
-	    "description": "Hypothermia",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Hypothermia", 
+            "key": "hy", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 17,
-        "model": "ubuzima.fieldtype",
+        "pk": 17, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "rb",
-	    "description": "Rapid breathing",
-            "category": "3"
-       }
-    },
+            "category": 3, 
+            "description": "Rapid breathing", 
+            "key": "rb", 
+            "has_value": false
+        }
+    }, 
     {
-        "pk": 18,
-        "model": "ubuzima.fieldtype",
+        "pk": 18, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "pn",
-	    "description": "Pneumonia",
-            "category": "1"
-       }
- 
-   },
-   {
-        "pk": 19,
-        "model": "ubuzima.fieldtype",
+            "category": 1, 
+            "description": "Pneumonia", 
+            "key": "pn", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "he",
-	    "description": "Hemorrhaging/Bleeding",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 20,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Hemorrhaging/Bleeding", 
+            "key": "he", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "hp",
-	    "description": "At hospital facility",
-            "category": "4"
-       }
- 
-   },
-   {
-        "pk": 21,
-        "model": "ubuzima.fieldtype",
+            "category": 4, 
+            "description": "At hospital facility", 
+            "key": "hp", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "cl",
-	    "description": "At clinic facility",
-            "category": "4"
-       }
- 
-   },
-   {
-        "pk": 22,
-        "model": "ubuzima.fieldtype",
+            "category": 4, 
+            "description": "At clinic facility", 
+            "key": "cl", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "or",
-	    "description": "On route",
-            "category": "4"
-       }
- 
-   },
-   {
-        "pk": 23,
-        "model": "ubuzima.fieldtype",
+            "category": 4, 
+            "description": "On route", 
+            "key": "or", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ho",
-	    "description": "At home",
-            "category": "4"
-       }
- 
-   },
-   {
-        "pk": 24,
-        "model": "ubuzima.fieldtype",
+            "category": 4, 
+            "description": "At home", 
+            "key": "ho", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "child_weight",
-	    "description": "Child weight",
-            "category": "1",
-	    "has_value": true
-       }
- 
-   },
-   {
-        "pk": 44,
-        "model": "ubuzima.fieldtype",
+            "category": 1, 
+            "description": "Child weight", 
+            "key": "child_weight", 
+            "has_value": true
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "child_number",
-	    "description": "Child Number",
-            "category": "1",
-	    "has_value": true
-       }
- 
-   },
-   {
-        "pk": 25,
-        "model": "ubuzima.fieldtype",
+            "category": 1, 
+            "description": "Child Number", 
+            "key": "child_number", 
+            "has_value": true
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "muac",
-	    "description": "MUAC",
-            "category": "1",
-	    "has_value": true
-       }
- 
-   },   {
-        "pk": 26,
-        "model": "ubuzima.fieldtype",
+            "category": 1, 
+            "description": "MUAC", 
+            "key": "muac", 
+            "has_value": true
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "child_length",
-	    "description": "Child length",
-            "category": "1",
-	    "has_value": true
-       }
- 
-   },
-   {
-        "pk": 27,
-        "model": "ubuzima.fieldtype",
+            "category": 1, 
+            "description": "Child length", 
+            "key": "child_length", 
+            "has_value": true
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "mother_weight",
-	    "description": "Mother weight",
-            "category": "1",
-	    "has_value": true
-       }
- 
-   },
-   {
-        "pk": 28,
-        "model": "ubuzima.fieldtype",
+            "category": 1, 
+            "description": "Mother weight", 
+            "key": "mother_weight", 
+            "has_value": true
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "vo",
-	    "description": "Vomiting",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 29,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Vomiting", 
+            "key": "vo", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "co",
-	    "description": "Convulsions",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 30,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Convulsions", 
+            "key": "co", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "sa",
-	    "description": "Severe Anemia",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 31,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Severe Anemia", 
+            "key": "sa", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ch",
-	    "description": "Coughing",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 32,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Coughing", 
+            "key": "ch", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "un",
-	    "description": "Unconscious",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 33,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Unconscious", 
+            "key": "un", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "oe",
-	    "description": "Oedema",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 34,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Oedema", 
+            "key": "oe", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "np",
-	    "description": "No Problem",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 35,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "No Problem", 
+            "key": "np", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "fp",
-	    "description": "Flaccid Paralysis",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 36,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Flaccid Paralysis", 
+            "key": "fp", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ns",
-	    "description": "Neck Stiffness",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 37,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Neck Stiffness", 
+            "key": "ns", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "cm",
-	    "description": "Congenital Malfunction",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 38,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Congenital Malfunction", 
+            "key": "cm", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ja",
-	    "description": "Jaundice",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 39,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Jaundice", 
+            "key": "ja", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "af",
-	    "description": "Abnormal Fontanel",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 40,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Abnormal Fontanel", 
+            "key": "af", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "pc",
-	    "description": "Premature Contraction",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 41,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Premature Contraction", 
+            "key": "pc", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "sl",
-	    "description": "Stroke Labor",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 42,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Stroke Labor", 
+            "key": "sl", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ds",
-	    "description": "Chronic Disease",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 43,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Chronic Disease", 
+            "key": "ds", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "ps",
-	    "description": "Labor on Previous Cesarian Section",
-            "category": "3"
-       }
- 
-   },
-   {
-        "pk": 45,
-        "model": "ubuzima.fieldtype",
+            "category": 3, 
+            "description": "Labor on Previous Cesarian Section", 
+            "key": "ps", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "v1",
-	    "description": "Vaccine: BCG, P0",
-            "category": "6"
-       }
- 
-   },
-   {
-        "pk": 46,
-        "model": "ubuzima.fieldtype",
+            "category": 6, 
+            "description": "Vaccine: BCG, P0", 
+            "key": "v1", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "v2",
-	    "description": "Vaccine: P1, Penta1, PCV1",
-            "category": "6"
-       }
- 
-   },
-   {
-        "pk": 47,
-        "model": "ubuzima.fieldtype",
+            "category": 6, 
+            "description": "Vaccine: P1, Penta1, PCV1", 
+            "key": "v2", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "v3",
-	    "description": "Vaccine: P2, Penta2, PCV2",
-            "category": "6"
-       }
- 
-   },
-   {
-        "pk": 48,
-        "model": "ubuzima.fieldtype",
+            "category": 6, 
+            "description": "Vaccine: P2, Penta2, PCV2", 
+            "key": "v3", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "v4",
-	    "description": "Vaccine: P3, Penta3, PCV3",
-            "category": "6"
-       }
- 
-   },
-   {
-        "pk": 49,
-        "model": "ubuzima.fieldtype",
+            "category": 6, 
+            "description": "Vaccine: P3, Penta3, PCV3", 
+            "key": "v4", 
+            "has_value": false
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "ubuzima.fieldtype", 
         "fields": {
-            "key": "v5",
-	    "description": "Vaccine: Measles",
-            "category": "6"
-       }
- 
-   }
+            "category": 6, 
+            "description": "Vaccine: Measles", 
+            "key": "v5", 
+            "has_value": false
+        }
+    }
 ]
