@@ -43,6 +43,7 @@ Features currently in development are:
    features
    apps
    data_design
+   upgrade
 
 * :ref:`genindex`
 * :ref:`modindex`
